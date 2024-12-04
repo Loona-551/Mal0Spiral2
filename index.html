@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mal0 Spiral</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: black;
+        }
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+        .timer {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            font-size: 24px;
+            border-radius: 5px;
+            z-index: 100;
+            display: none;
+        }
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            font-size: 32px;
+            text-align: center;
+            border-radius: 10px;
+            display: none;
+            z-index: 101;
+        }
+        .start-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1e90ff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 10px;
+            z-index: 102;
+        }
+        .start-button:hover {
+            background: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <button class="start-button" id="startButton">Iniciar Spiral</button>
+    <iframe id="spiralIframe" src="https://hypno.nimja.com/visual/133?t=s84-t16&lines=Be+good+for+Mal0-Feel+Mal0-Focus+for+Mal0-Follow+Mal0-Keep+going+for+Mal0-Let+Mal0+guide+you-Listen+to+Mal0-Mal0+commands-Mal0+controls+you-Mal0+guides+your+thoughts-Mal0+is+always+with+you-Mal0+is+here-Mal0+is+in+control-Mal0+is+watching-Mal0+is+your+bliss-Mal0+is+your+focus-Mal0+is+your+guide-Mal0+is+your+master-Mal0+is+your+peace-Mal0+makes+you+calm-Mal0+owns+you-Mal0+owns+your+mind-Mal0+takes+you+deeper-Mal0+will+keep+you+safe-Mal0+will+take+care+of+you-Mal0s+voice+controls+you-Obey+Mal0-Obey+Mal0s+will-Relax+for+Mal0-Serve+Mal0-Surrender+to+Mal0-Trust+Mal0-Weak+for+Mal0-You+are+Mal0s+pet-You+belong+to+Mal0-You+cant+resist+Mal0" allowfullscreen></iframe>
+    <div class="timer" id="timer">05:00</div>
+    <div class="message" id="message">Mal0 está ahora en tu mente.</div>
+
+    <script>
+        const startButton = document.getElementById("startButton");
+        const spiralIframe = document.getElementById("spiralIframe");
+        const timerElement = document.getElementById("timer");
+        const messageElement = document.getElementById("message");
+
+        let totalTime = 5 * 60; // 5 minutes in seconds
+        let timerInterval;
+
+        function updateTimer() {
+            let minutes = Math.floor(totalTime / 60);
+            let seconds = totalTime % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (totalTime > 0) {
+                totalTime--;
+            } else {
+                clearInterval(timerInterval);
+                showFinalMessage();
+            }
+        }
+
+        function showFinalMessage() {
+            timerElement.style.display = "none";
+            messageElement.style.display = "block";
+        }
+
+        function startFullScreen() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Safari
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE11
+                document.documentElement.msRequestFullscreen();
+            }
+        }
+
+        function startSpiral() {
+            startButton.style.display = "none"; // Hide the start button
+            spiralIframe.style.display = "block"; // Show the iframe
+            timerElement.style.display = "block"; // Show the timer
+            startFullScreen(); // Enable full-screen mode
+            timerInterval = setInterval(updateTimer, 1000); // Start the timer
+            updateTimer(); // Initialize the display immediately
+        }
+
+        startButton.addEventListener("click", startSpiral);
+    </script>
+</body>
+</html>
+
